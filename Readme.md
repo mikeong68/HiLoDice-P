@@ -35,6 +35,7 @@ Two players ( one human and the computer ).  Using just dices of value 1 to 6, t
 A possible screen image of how the play will look like :-
 
 <p style="text-align:left">
-<img src="https://i.imgur.com/M25CWm9.png">
+<img src="https://i.imgur.com/zj8lRff.png">
 </p>
+
 
