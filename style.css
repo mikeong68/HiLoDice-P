@@ -1,22 +1,114 @@
 /* body {
     display: flex;
     flex-wrap: wrap;
-}
-
-.colour1 {
-    width: 12.5%;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    border: red solid;
-    background-color: red
-}
-
-.colour2 {
-    width: 12.5%;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    border: black solid;
-    background-color: black
 } */
+
+#Header {
+    text-align: center;
+    color: red;
+}
+
+.AllButtons {
+    background-color: yellow;
+    border-radius: 4px;
+    border: 2px solid black;
+    padding: 2px 10px;
+    color: black;
+}
+
+.PlayScreen {
+    display : grid;
+    justify-content: center;
+    grid-template-columns: 10% 26% 26% 26% 10%;
+    grid-gap: 0.5rem;
+}
+
+#GameMode {
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+
+#PlayerName {
+grid-column-start: 2;
+grid-row-start: 2;
+}
+
+#PlayerHitPoints {
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+
+#PlayerShieldPoints{
+    grid-column-start: 2;
+    grid-row-start: 4;
+}
+
+#ComputerName{
+    grid-column-start: 2;
+    grid-row-start: 5;
+}
+
+#ComputerHitPoints{
+    grid-column-start: 2;
+    grid-row-start: 6;
+}
+
+#PlayerRoll{
+    grid-column-start: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    justify-self: center;
+    align-self: center;
+    font-size: 200%;
+}
+
+#RollPlayer{
+    grid-column-start: 3;
+    grid-row-start: 3;
+    text-align: center;
+}
+
+#ComputerRoll{
+    grid-column-start: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    justify-self: center;
+    align-self: center;
+    font-size: 200%;
+}
+
+#RollComputer{
+    grid-column-start: 4;
+    grid-row-start: 3;
+    text-align: center;
+}
+
+#TotalDiceValue {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 4;
+    text-align: center;
+}
+
+#Roundwinner {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 5;
+    text-align: center;
+}
+
+#ButtonRoll {
+    grid-column-start: 3;
+    grid-row-start: 6;
+}
+
+#ButtonShield {
+    grid-column-start: 4;
+    grid-row-start: 6;
+}
+
+#RemarkScore {
+    text-align: center;
+    font-size: xx-large;
+}
+    
