@@ -1,114 +1,163 @@
-/* body {
-    display: flex;
-    flex-wrap: wrap;
-} */
+
 
 #Header {
-    text-align: center;
-    color: red;
+  text-align: center;
+  color: red;
 }
 
 .AllButtons {
-    background-color: yellow;
-    border-radius: 4px;
-    border: 2px solid black;
-    padding: 2px 10px;
-    color: black;
+  background-color: yellow;
+  border-radius: 4px;
+  border: 2px solid black;
+  padding: 2px 10px;
+  color: black;
 }
 
-.PlayScreen {
-    display : grid;
+.Intro {
+    display: grid;
     justify-content: center;
-    grid-template-columns: 10% 26% 26% 26% 10%;
-    grid-gap: 0.5rem;
+    grid-template-columns: 10% 80% 10%;
 }
 
-#GameMode {
+#IntroText {
     grid-column-start: 2;
     grid-row-start: 1;
+  }
+  
+ #IntroChoice {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    text-align: center;
+    font-size: x-large;
+  }
+
+  .PlayScreen {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 10% 26% 26% 26% 10%;
+  grid-gap: 0.5rem;
+}
+  
+#GameMode {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  /* background-color: green; */
 }
 
 #PlayerName {
-grid-column-start: 2;
-grid-row-start: 2;
+  grid-column-start: 2;
+  grid-row-start: 4;
 }
 
 #PlayerHitPoints {
-    grid-column-start: 2;
-    grid-row-start: 3;
+  grid-column-start: 2;
+  grid-row-start: 5;
 }
 
-#PlayerShieldPoints{
-    grid-column-start: 2;
-    grid-row-start: 4;
+#PlayerShieldPoints {
+  grid-column-start: 2;
+  grid-row-start: 6;
 }
 
-#ComputerName{
-    grid-column-start: 2;
-    grid-row-start: 5;
+#ComputerName {
+  grid-column-start: 2;
+  grid-row-start: 7;
 }
 
-#ComputerHitPoints{
-    grid-column-start: 2;
-    grid-row-start: 6;
+#ComputerHitPoints {
+  grid-column-start: 2;
+  grid-row-start: 8;
 }
 
-#PlayerRoll{
-    grid-column-start: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    justify-self: center;
-    align-self: center;
-    font-size: 200%;
+#PlayerRoll {
+  grid-column-start: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  justify-self: center;
+  align-self: center;
+  font-size: 200%;
 }
 
-#RollPlayer{
-    grid-column-start: 3;
-    grid-row-start: 3;
-    text-align: center;
+#RollPlayer {
+  grid-column-start: 3;
+  grid-row-start: 5;
+  text-align: center;
 }
 
-#ComputerRoll{
-    grid-column-start: 4;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    justify-self: center;
-    align-self: center;
-    font-size: 200%;
+#ComputerRoll {
+  grid-column-start: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  justify-self: center;
+  align-self: center;
+  font-size: 200%;
 }
 
-#RollComputer{
-    grid-column-start: 4;
-    grid-row-start: 3;
-    text-align: center;
+#RollComputer {
+  grid-column-start: 4;
+  grid-row-start: 5;
+  text-align: center;
 }
 
 #TotalDiceValue {
-    grid-column-start: 3;
-    grid-column-end: 5;
-    grid-row-start: 4;
-    text-align: center;
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  text-align: center;
 }
 
 #Roundwinner {
-    grid-column-start: 3;
-    grid-column-end: 5;
-    grid-row-start: 5;
-    text-align: center;
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 7;
+  text-align: center;
 }
 
-#ButtonRoll {
-    grid-column-start: 3;
-    grid-row-start: 6;
+#Button1 {
+  grid-column-start: 3;
+  grid-row-start: 8;
 }
 
-#ButtonShield {
-    grid-column-start: 4;
-    grid-row-start: 6;
+#Button2 {
+  grid-column-start: 4;
+  grid-row-start: 8;
 }
 
 #RemarkScore {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 9;
     text-align: center;
-    font-size: xx-large;
+  font-size: xx-large;
 }
-    
+
+#Tips {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 10;
+    text-align: center;
+  font-size: smaller;
+}
+
+#ModeSelect {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 11;
+    text-align: center;
+  font-size: smaller;
+}
+
+.Menu {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 10% 80% 10%;
+}
+
+#ModeSelect {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+  }
+
+
