@@ -4,11 +4,73 @@ if (typeof $ == 'undefined') {
   console.log('Both jQuery & JS is linked!  ALL CLEAR !!')
 }
 
+const cards = [
+  'Ace of Spade',
+  'Ace of Heart',
+  'Ace of Club',
+  'Ace of Diamond',
+  'King of Spade',
+  'King of Heart',
+  'King of Club',
+  'King of Diamond',
+  'Queen of Spade',
+  'Queen of Heart',
+  'Queen of Club',
+  'Queen of Diamond',
+  'Jack of Spade',
+  'Jack of Heart',
+  'Jack of Club',
+  'Jack of Diamond',
+  '10 of Spade',
+  '10 of Heart',
+  '10 of Club',
+  '10 of Diamond',
+  '9 of Spade',
+  '9 of Heart',
+  '9 of Club',
+  '9 of Diamond',
+  '8 of Spade',
+  '8 of Heart',
+  '8 of Club',
+  '8 of Diamond',
+  '7 of Spade',
+  '7 of Heart',
+  '7 of Club',
+  '7 of Diamond',
+  '6 of Spade',
+  '6 of Heart',
+  '6 of Club',
+  '6 of Diamond',
+  '5 of Spade',
+  '5 of Heart',
+  '5 of Club',
+  '5 of Diamond',
+  '4 of Spade',
+  '4 of Heart',
+  '4 of Club',
+  '4 of Diamond',
+  '3 of Spade',
+  '3 of Heart',
+  '3 of Club',
+  '3 of Diamond',
+  '2 of Spade',
+  '2 of Heart',
+  '2 of Club',
+  '2 of Diamond',
+]
+
+let timer = 20
+let cardA = null
+let cardB = null
+let cardPlayer = null
+let cardComputer = null
+let cardScore = 0
+
 let gameMode = 0
 let gameStatus = 'on'
 let shieldStatus = 'off'
-let playerShieldPts = 5
-let playerHitPoints = 20
+let playerShieldPts = 5 //---------------TO RESET TO 5----------
+let playerHitPoints = 20 //-------------TO RESET TO 20---------
 let computerHitPoints = 20
 let playerD = '?'
 let computerD = '?'
@@ -51,7 +113,7 @@ $(() => {
     if (playerD === computerD) {
       $('#Roundwinner').text('This round is a tie.')
       $('#Roundwinner').css('color', 'black')
-      $('#RemarkScore').text(`Player = your Hit Points remains.`)
+      $('#RemarkScore').text(`Your Hit Points remains.`)
     } else if (playerD > computerD) {
       playerHitPoints =
         playerHitPoints + adjustD > 0 ? playerHitPoints + adjustD : 0
@@ -59,9 +121,7 @@ $(() => {
         computerHitPoints - adjustD > 0 ? computerHitPoints - adjustD : 0
       $('#Roundwinner').text('This round WINNER = Player !')
       $('#Roundwinner').css('color', 'green')
-      $('#RemarkScore').text(
-        `Player = your Hit Points increased by ${adjustD}.`,
-      )
+      $('#RemarkScore').text(`Your Hit Points increased by ${adjustD}.`)
     } else {
       playerHitPoints =
         playerHitPoints - adjustD > 0 ? playerHitPoints - adjustD : 0
@@ -69,7 +129,7 @@ $(() => {
         computerHitPoints + adjustD > 0 ? computerHitPoints + adjustD : 0
       $('#Roundwinner').text('This round WINNER = Computer !')
       $('#Roundwinner').css('color', 'red')
-      $('#RemarkScore').text(`Player = your Hit Points is down by ${adjustD}.`)
+      $('#RemarkScore').text(`Your Hit Points is down by ${adjustD}.`)
     }
   }
 
@@ -92,21 +152,70 @@ $(() => {
     }
   }
 
-  const play = () => {
-    if (gameStatus === 'on') {
-      playerRoll()
-      computerRoll()
-      totalD = playerD + computerD
-      shieldD = playerD > computerD ? playerD : computerD
-      $('#TotalDiceValue').text('Total Dice Value is ' + totalD + '.')
-      compareRoll()
-      $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
-      $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
-      determineWinner()
+  const but1Act = () => {
+    if ($('#Button1').text() === 'Card A') {
+      cardPlayer = cardA
+      cardComputer = cardB
+      console.log('player- ', cardPlayer)
+      compareCard()
+    }
+    if ($('#Button1').text() === 'R O L L') {
+      if (gameStatus === 'on') {
+        playerRoll()
+        computerRoll()
+        totalD = playerD + computerD
+        shieldD = playerD > computerD ? playerD : computerD
+        $('#TotalDiceValue').text('Total Dice Value is ' + totalD + '.')
+        compareRoll()
+        $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
+        $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
+        determineWinner()
+      }
+    }
+
+    if (
+      $('#Button1').text() === 'G O' &&
+      $('#Button2').text() === 'bonus game S H I E L D'
+    ) {
+      startCard()
     }
   }
 
-  const selectMode1 = () => {
+  const but2Act = () => {
+    if ($('#Button2').text() === 'Card B') {
+      cardPlayer = cardB
+      cardComputer = cardA
+      console.log('player- ', cardPlayer)
+      compareCard()
+    } else if ($('#Button2').text() === 'M E N U') {
+      location.reload()
+    } else if (gameMode === 2 && playerShieldPts === 0) {
+      $('#Button2').css('background-color', 'orange')
+      $('#PlayerShieldPoints').css('color', 'red')
+    } else if ($('#Button2').text() === 'S H I E L D') {
+      shieldStatus = 'on'
+      $('#Button2').css('background-color', 'cyan')
+    }
+
+    if (
+      gameMode === 3 &&
+      playerShieldPts <= 0 &&
+      $('#Button2').text() === 'S H I E L D'
+    ) {
+      playerShieldPts = 0
+      shieldStatus = 'off'
+      $('#Button2').css('background-color', 'lawngreen')
+      $('#Button2').text('bonus game S H I E L D')
+      $('#RemarkScore').text(
+        'You have run out of Shield Points, play the bonus game to get more OR you can continue rolling.',
+      )
+      $('#Button1').css('background-color', 'cyan')
+      $('#Button1').text('G O')
+      $('#Button2').click(setPanelCard) // Card Screen
+    }
+  }
+
+  const but3Act = () => {
     gameMode = 1
     computerRollMatrix = [1, 6] // min, max
     $('#GameMode').text('Game 1 - Basic Hi-Lo')
@@ -117,7 +226,7 @@ $(() => {
     $('.Menu').hide()
   }
 
-  const selectMode2 = () => {
+  const but4Act = () => {
     gameMode = 2
     $('#GameMode').text('Game 2 - Unfair Advantage')
     $('#PlayerShieldPoints').show()
@@ -127,7 +236,7 @@ $(() => {
     $('.Menu').hide()
   }
 
-  const selectMode3 = () => {
+  const but5Act = () => {
     gameMode = 3
     $('#GameMode').text('Game 3 - Fairness Dice')
     $('#PlayerShieldPoints').show()
@@ -137,25 +246,87 @@ $(() => {
     $('.Menu').hide()
   }
 
-  const shieldMode = () => {
-    if ($('#Button2').text() === 'M E N U') {
-      location.reload();
-    } else {
-      if (playerShieldPts === 0) {
-        $('#Button2').css('background-color', 'orange');
-        $('#PlayerShieldPoints').css('color', 'red');
+  const setPanelCard = () => {
+    if ($('#Button1').text() === 'G O') {
+      $('#PlayerRoll').text('Card')
+      $('#ComputerRoll').text('Card')
+      $('#RollPlayer').text('Card-A')
+      $('#RollComputer').text('Card-B')
+      $('#Roundwinner').css('color', 'sienna')
+      $('#Roundwinner').text('click GO to start')
+      $('#RemarkScore').text(
+        'You have 20 seconds to get as many high value cards as you can.',
+      )
+      $('#TotalDiceValue').text('Score= 0 Timer= 20')
+    }
+  }
+
+  const cardAssign = () => {
+    if ($('#Button1').text() === 'Card A' || 'G O') {
+      cardA = Math.floor(Math.random() * cards.length)
+      console.log('card A- ', cardA, '-', cards[cardA])
+      // cardB = Math.floor(Math.random() * cards.length)
+      // console.log('card B- ', cardB, '-', cards[cardB])
+
+      if (cardA === 0) {
+        cardB = Math.floor(Math.random() * cards.length) + 1
+        console.log('card B set- ', cardB, '-', cards[cardB])
+      } else if (cardA === cards.length) {
+        cardB = Math.floor(Math.random() * (cards.length - 1))
+        console.log('card B set- ', cardB, '-', cards[cardB])
       } else {
-        shieldStatus = 'on';
-        $('#Button2').css('background-color', 'cyan');
+        let a = cardA - 1
+        let b = cardA + 1
+        sideChoice = Math.floor(Math.random() * 2)
+        if (sideChoice === 0) {
+          cardB = Math.floor(Math.random() * a)
+          console.log('card B set- ', cardB, '-', cards[cardB])
+        } else {
+          cardB = Math.floor(Math.random() * (52 - b)) + b
+          console.log('card B set- ', cardB, '-', cards[cardB])
+        }
       }
     }
   }
 
+  const startCard = () => {
+    cardAssign()
+    $('#PlayerRoll').text('X')
+    $('#ComputerRoll').text('X')
+    $('#Button1').css('background-color', 'yellow')
+    $('#Button1').text('Card A')
+    $('#Button2').css('background-color', 'yellow')
+    $('#Button2').text('Card B')
+    $('#TotalDiceValue').text("Score= "+cardScore+" Timer= "+timer)
+    $('#Roundwinner').css('color', 'black')
+    $('#Roundwinner').text('Click your desired card below.')
+    $('#RemarkScore').text(
+      'You have 20 seconds to get as many high value cards as you can.',
+    )
+  }
+
+
+const compareCard = () => {
+  if (cardPlayer < cardComputer){
+    if (cardA < cardB){
+      $('#PlayerRoll').css('background-color', 'yellow')
+    } else {
+      $('#ComputerRoll').css('background-color', 'yellow')
+    }
+    $('#PlayerRoll').text(cards[cardA])
+    $('#ComputerRoll').text(cards[cardB])
+  cardScore++
+    $('#TotalDiceValue').text("Score= "+cardScore+" Timer= "+timer)
+  }
+}
+
+
+
   $('.PlayScreen').hide()
 
-  $('#Button1').on('click', play)
-  $('#Button2').click(shieldMode)
-  $('#Button3').click(selectMode1)
-  $('#Button4').click(selectMode2)
-  $('#Button5').click(selectMode3)
+  $('#Button1').click(but1Act) // Roll / Go-BonusShield / Card-A
+  $('#Button2').click(but2Act) // Menu / Shield / Card-B
+  $('#Button3').click(but3Act) // Mode1
+  $('#Button4').click(but4Act) // Mode2
+  $('#Button5').click(but5Act) // Mode3
 })

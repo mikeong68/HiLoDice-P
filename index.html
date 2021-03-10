@@ -34,7 +34,7 @@
         Loser lose Hit Points with total value of Dice(s).
         <br />
         <br />
-        Only player has Shield Points starting from 5 in Game Mode #2 and #3.
+        Only player has Shield Points for Game Mode #2 and #3.
         Shield Points are insurance against Computer Dice having higher total
         values than 6; cause Computer has two dice(s). When Shield is activated,
         the increase / losing of Hit Points will just be the highest total value
@@ -48,6 +48,8 @@
         Shield OFF - 19 is used to adjust Hit Points.
         <br />
         <br />
+        Game Mode #2 - Player gets only 5 Shield Points.<br />
+        Game Mode #3 - Player gets 5 Shield Points and is able to get more on reaching zero ( 0 ).
       </p>
       <p id="IntroChoice">Player = choose your Game Level</p>
     </div>
@@ -59,12 +61,11 @@
       <p id="PlayerShieldPoints">5: Shield Points</p>
       <p id="ComputerName">Computer:</p>
       <p id="ComputerHitPoints">20: Hit Points</p>
-
+      <p id="PlayerRoll">Dice</p>
       <p id="RollPlayer">Player</p>
-      <p id="PlayerRoll">?</p>
 
+      <p id="ComputerRoll">Dice</p>
       <p id="RollComputer">Computer</p>
-      <p id="ComputerRoll">?</p>
 
       <p id="TotalDiceValue">This round has not been played.</p>
       <p id="Roundwinner">Click R O L L to start.</p>
@@ -73,36 +74,33 @@
       <button class="AllButtons" id="Button2">S H I E L D</button>
 
       <p id="RemarkScore">Player = click R O L L to start.</p>
-      <p id="Tips">*** tips ***</p>
     </div>
     <div class="Menu">
-        <div id="ModeSelect">
-            <button class="AllButtons" id="Button3">
-              Game 1 - Basic Hi-Lo
-              <br />
-              .
-            </button>
-            <button class="AllButtons" id="Button4">
-              Game 2 - Unfair Advantage
-              <br />
-              with Shield Points
-            </button>
-            <button class="AllButtons" id="Button5">
-              Game 3 - Fairness Dices
-              <br />
-              with Shield Points
-            </button>
-          </div>
+      <div id="ModeSelect">
+        <button class="AllButtons" id="Button3">
+          Game 1 - Basic Hi-Lo
+          <br />
+          .
+        </button>
+        <button class="AllButtons" id="Button4">
+          Game 2 - Unfair Advantage
+          <br />
+          with Shield Points
+        </button>
+        <button class="AllButtons" id="Button5">
+          Game 3 - Fairness Dices
+          <br />
+          with Shield Points
+        </button>
+      </div>
     </div>
 
     <center>
-      <font size="strong">
         <p>
           Best play with
           <br />
           Google Chrome on Computer / Tablet
         </p>
-      </font>
     </center>
   </body>
 </html>
