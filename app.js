@@ -59,7 +59,7 @@ const cards = [
   '2 of Diamond',
 ]
 
-let timer = 20
+let timer = 10 //-----------------------TO RESET TO 20----------
 let cardA = null
 let cardB = null
 let cardPlayer = null
@@ -69,8 +69,8 @@ let cardScore = 0
 let gameMode = 0
 let gameStatus = 'on'
 let shieldStatus = 'off'
-let playerShieldPts = 5 //---------------TO RESET TO 5----------
-let playerHitPoints = 20 //-------------TO RESET TO 20---------
+let playerShieldPts = 1 //---------------TO RESET TO 5----------
+let playerHitPoints = 200 //-------------TO RESET TO 20---------
 let computerHitPoints = 20
 let playerD = '?'
 let computerD = '?'
@@ -158,6 +158,7 @@ $(() => {
       cardComputer = cardB
       console.log('player- ', cardPlayer)
       compareCard()
+      startCard()
     }
     if ($('#Button1').text() === 'R O L L') {
       if (gameStatus === 'on') {
@@ -177,6 +178,7 @@ $(() => {
       $('#Button1').text() === 'G O' &&
       $('#Button2').text() === 'bonus game S H I E L D'
     ) {
+      timerCounter() //----------------TO RESET "remove //"---------
       startCard()
     }
   }
@@ -187,6 +189,7 @@ $(() => {
       cardComputer = cardA
       console.log('player- ', cardPlayer)
       compareCard()
+      startCard()
     } else if ($('#Button2').text() === 'M E N U') {
       location.reload()
     } else if (gameMode === 2 && playerShieldPts === 0) {
@@ -209,9 +212,14 @@ $(() => {
       $('#RemarkScore').text(
         'You have run out of Shield Points, play the bonus game to get more OR you can continue rolling.',
       )
+    } else if (
+      gameMode === 3 &&
+      playerShieldPts <= 0 &&
+      $('#Button2').text() === 'bonus game S H I E L D'
+    ) {
       $('#Button1').css('background-color', 'cyan')
       $('#Button1').text('G O')
-      $('#Button2').click(setPanelCard) // Card Screen
+      setPanelCard() // Card Screen
     }
   }
 
@@ -247,12 +255,12 @@ $(() => {
   }
 
   const setPanelCard = () => {
-    if ($('#Button1').text() === 'G O') {
+    if ($('#Button2').text() === 'bonus game S H I E L D') {
       $('#PlayerRoll').text('Card')
       $('#ComputerRoll').text('Card')
       $('#RollPlayer').text('Card-A')
       $('#RollComputer').text('Card-B')
-      $('#Roundwinner').css('color', 'sienna')
+      $('#Roundwinner').css('color', 'senna')
       $('#Roundwinner').text('click GO to start')
       $('#RemarkScore').text(
         'You have 20 seconds to get as many high value cards as you can.',
@@ -270,57 +278,89 @@ $(() => {
 
       if (cardA === 0) {
         cardB = Math.floor(Math.random() * cards.length) + 1
-        console.log('card B set- ', cardB, '-', cards[cardB])
+        console.log('card B setA- ', cardB, '-', cards[cardB])
       } else if (cardA === cards.length) {
         cardB = Math.floor(Math.random() * (cards.length - 1))
-        console.log('card B set- ', cardB, '-', cards[cardB])
+        console.log('card B setB- ', cardB, '-', cards[cardB])
       } else {
         let a = cardA - 1
         let b = cardA + 1
         sideChoice = Math.floor(Math.random() * 2)
         if (sideChoice === 0) {
           cardB = Math.floor(Math.random() * a)
-          console.log('card B set- ', cardB, '-', cards[cardB])
+          console.log('card B setC- ', cardB, '-', cards[cardB])
         } else {
           cardB = Math.floor(Math.random() * (52 - b)) + b
-          console.log('card B set- ', cardB, '-', cards[cardB])
+          console.log('card B setD- ', cardB, '-', cards[cardB])
         }
       }
     }
+    turn = 'off'
   }
 
   const startCard = () => {
-    cardAssign()
-    $('#PlayerRoll').text('X')
-    $('#ComputerRoll').text('X')
+    let turn = 'on'
+    if ((turn = 'on')) {
+      cardAssign()
+    }
     $('#Button1').css('background-color', 'yellow')
     $('#Button1').text('Card A')
     $('#Button2').css('background-color', 'yellow')
     $('#Button2').text('Card B')
-    $('#TotalDiceValue').text("Score= "+cardScore+" Timer= "+timer)
+    $('#TotalDiceValue').text('Score= ' + cardScore + ' Timer= ' + timer)
     $('#Roundwinner').css('color', 'black')
-    $('#Roundwinner').text('Click your desired card below.')
+    $('#Roundwinner').text('choose Card-A / Card-B for next round')
     $('#RemarkScore').text(
       'You have 20 seconds to get as many high value cards as you can.',
     )
   }
 
+  const timerCounter = () => {
+    const countDown = setInterval(() => {
+      $('#TotalDiceValue').text('Score= ' + cardScore + ' Timer= ' + timer)
+      if (timer === 0) {
+        clearInterval(countDown)
+        $('#Button1').prop('disabled', true)
+        $('#Button1').css('background-color', 'lightgray')
+        $('#Button2').prop('disabled', true)
+        $('#Button2').css('background-color', 'lightgrey')
+        $('#Roundwinner').css('color', 'red')
+        $('#Roundwinner').text("Time's Up.")
+        cardOver()
+      } else {
+        timer--
+      }
+    }, 1000)
+  }
 
-const compareCard = () => {
-  if (cardPlayer < cardComputer){
-    if (cardA < cardB){
-      $('#PlayerRoll').css('background-color', 'yellow')
-    } else {
-      $('#ComputerRoll').css('background-color', 'yellow')
-    }
+  const compareCard = () => {
     $('#PlayerRoll').text(cards[cardA])
     $('#ComputerRoll').text(cards[cardB])
-  cardScore++
-    $('#TotalDiceValue').text("Score= "+cardScore+" Timer= "+timer)
+    if (cardA < cardB) {
+      $('#PlayerRoll').css('background-color', 'yellow')
+      $('#ComputerRoll').css('background-color', 'white')
+    } else {
+      $('#PlayerRoll').css('background-color', 'white')
+      $('#ComputerRoll').css('background-color', 'yellow')
+    }
+  if (cardPlayer < cardComputer) {
+      cardScore++
+      $('#TotalDiceValue').text('Score= ' + cardScore + ' Timer= ' + timer)
+    }
+    turn = 'on'
   }
+
+  const cardOver = () => {
+    playerShieldPts = cardScore
+    $('#PlayerShieldPoints').text(`${playerShieldPts}: Shield Points`)
+    $('#RemarkScore').text('Your Shield Points is now '+playerShieldPts+'.')
+    $('#Button1').prop('disabled', false)
+    $('#Button1').css('background-color', 'yellow')
+    $('#Button1').hide()
+    $('#Button2').prop('disabled', false)
+    $('#Button2').css('background-color', 'yellow')
+    $('#Button2').text('R O L L')
 }
-
-
 
   $('.PlayScreen').hide()
 
