@@ -59,7 +59,7 @@ const cards = [
   '2 of Diamond',
 ]
 
-let timer = 10 //-----------------------TO RESET TO 20----------
+let timer = 5
 let cardA = null
 let cardB = null
 let cardPlayer = null
@@ -69,8 +69,8 @@ let cardScore = 0
 let gameMode = 0
 let gameStatus = 'on'
 let shieldStatus = 'off'
-let playerShieldPts = 1 //---------------TO RESET TO 5----------
-let playerHitPoints = 200 //-------------TO RESET TO 20---------
+let playerShieldPts = 5
+let playerHitPoints = 20
 let computerHitPoints = 20
 let playerD = '?'
 let computerD = '?'
@@ -174,11 +174,8 @@ $(() => {
       }
     }
 
-    if (
-      $('#Button1').text() === 'G O' &&
-      $('#Button2').text() === 'bonus game S H I E L D'
-    ) {
-      timerCounter() //----------------TO RESET "remove //"---------
+    if ($('#Button1').text() === 'G O') {
+      timerCounter()
       startCard()
     }
   }
@@ -217,9 +214,26 @@ $(() => {
       playerShieldPts <= 0 &&
       $('#Button2').text() === 'bonus game S H I E L D'
     ) {
+      $('#Button2').css('background-color', 'lightpink')
+      $('#Button2').text('return to D I C E')
       $('#Button1').css('background-color', 'cyan')
       $('#Button1').text('G O')
       setPanelCard() // Card Screen
+    } else if (
+      gameMode === 3 &&
+      playerShieldPts <= 0 &&
+      $('#Button1').text() === 'G O' &&
+      $('#Button2').text() === 'return to D I C E'
+    ) {
+      setPanelDice()
+    }
+
+    if (
+      gameMode === 3 &&
+      playerShieldPts > 0 &&
+      $('#Button2').text() === 'return to D I C E'
+    ) {
+      setPanelDice()
     }
   }
 
@@ -254,8 +268,27 @@ $(() => {
     $('.Menu').hide()
   }
 
+  const setPanelDice = () => {
+    $('#PlayerRoll').css('background-color', 'white')
+    $('#PlayerRoll').text('Dice')
+    $('#ComputerRoll').css('background-color', 'white')
+    $('#ComputerRoll').text('Dice')
+    $('#RollPlayer').text('Player')
+    $('#RollComputer').text('Computer')
+    $('#TotalDiceValue').text('This round has not been played.')
+    $('#Roundwinner').css('color', 'black')
+    $('#Roundwinner').text('Click R O L L to start.')
+    $('#RemarkScore').text('Player = click R O L L to start.')
+    $('#Button1').css('background-color', 'yellow')
+    $('#Button1').show()
+    $('#Button1').css('background-color', 'yellow')
+    $('#Button1').text('R O L L')
+    $('#Button2').css('background-color', 'yellow')
+    $('#Button2').text('S H I E L D')
+  }
+
   const setPanelCard = () => {
-    if ($('#Button2').text() === 'bonus game S H I E L D') {
+    if ($('#Button2').text() === 'return to D I C E') {
       $('#PlayerRoll').text('Card')
       $('#ComputerRoll').text('Card')
       $('#RollPlayer').text('Card-A')
@@ -343,7 +376,7 @@ $(() => {
       $('#PlayerRoll').css('background-color', 'white')
       $('#ComputerRoll').css('background-color', 'yellow')
     }
-  if (cardPlayer < cardComputer) {
+    if (cardPlayer < cardComputer) {
       cardScore++
       $('#TotalDiceValue').text('Score= ' + cardScore + ' Timer= ' + timer)
     }
@@ -353,14 +386,15 @@ $(() => {
   const cardOver = () => {
     playerShieldPts = cardScore
     $('#PlayerShieldPoints').text(`${playerShieldPts}: Shield Points`)
-    $('#RemarkScore').text('Your Shield Points is now '+playerShieldPts+'.')
+    $('#RemarkScore').text('Your Shield Points is now ' + playerShieldPts + '.')
     $('#Button1').prop('disabled', false)
     $('#Button1').css('background-color', 'yellow')
     $('#Button1').hide()
     $('#Button2').prop('disabled', false)
-    $('#Button2').css('background-color', 'yellow')
-    $('#Button2').text('R O L L')
-}
+    $('#Button2').css('background-color', 'lightpink')
+    // $('#Button2').css('color', 'white')
+    $('#Button2').text('return to D I C E')
+  }
 
   $('.PlayScreen').hide()
 
