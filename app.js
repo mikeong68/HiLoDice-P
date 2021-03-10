@@ -69,9 +69,9 @@ let cardScore = 0
 let gameMode = 0
 let gameStatus = 'on'
 let shieldStatus = 'off'
-let playerShieldPts = 5
-let playerHitPoints = 20
-let computerHitPoints = 20
+let playerShieldPts = 0 //--adjust at function but3/4/5Act
+let playerHitPoints = 0 //--adjust at function but3/4/5Act
+let computerHitPoints = 0 //--adjust at function but3/4/5Act
 let playerD = '?'
 let computerD = '?'
 let totalD = null
@@ -139,7 +139,7 @@ $(() => {
       gameStatus = 'off'
       $('#Button1').hide()
       $('#Button2').show()
-      $('#Button2').text('M E N U')
+      $('#Button2').text('Play Again')
       $('#Button2').css('background-color', 'red')
       $('#Button2').css('color', 'white')
       if (playerHitPoints <= 0) {
@@ -149,6 +149,7 @@ $(() => {
         $('#RemarkScore').text('You WIN ! Computer salute YOU !!')
         $('#RemarkScore').css('color', 'green')
       }
+      $('.Menu').show()
     }
   }
 
@@ -187,11 +188,13 @@ $(() => {
       console.log('player- ', cardPlayer)
       compareCard()
       startCard()
-    } else if ($('#Button2').text() === 'M E N U') {
-      location.reload()
+    } else if ($('#Button2').text() === 'Play Again') {
+      resetScreen()
+      // location.reload()
     } else if (gameMode === 2 && playerShieldPts === 0) {
       $('#Button2').css('background-color', 'orange')
       $('#PlayerShieldPoints').css('color', 'red')
+      $('#RemarkScore').text('sorry... You have zero ( 0 ) Shield Point.')
     } else if ($('#Button2').text() === 'S H I E L D') {
       shieldStatus = 'on'
       $('#Button2').css('background-color', 'cyan')
@@ -218,7 +221,7 @@ $(() => {
       $('#Button2').text('return to D I C E')
       $('#Button1').css('background-color', 'cyan')
       $('#Button1').text('G O')
-      setPanelCard() // Card Screen
+      setPanelCard()
     } else if (
       gameMode === 3 &&
       playerShieldPts <= 0 &&
@@ -239,33 +242,78 @@ $(() => {
 
   const but3Act = () => {
     gameMode = 1
+    playerHitPoints = 20
+    computerHitPoints = 20
     computerRollMatrix = [1, 6] // min, max
     $('#GameMode').text('Game 1 - Basic Hi-Lo')
+    $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
+    $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').hide()
+    $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
+    $('#RemarkScore').css('color','black')
     $('#Button2').hide()
     $('.Intro').hide()
     $('.PlayScreen').show()
     $('.Menu').hide()
+    setPanelDice()
+    gameStatus = 'on'
   }
 
   const but4Act = () => {
     gameMode = 2
+    playerHitPoints = 20
+    playerShieldPts = 5
+    computerHitPoints = 20
     $('#GameMode').text('Game 2 - Unfair Advantage')
+    $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
+    $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
+    $('#PlayerShieldPoints').css('color','black')
     $('#PlayerShieldPoints').show()
+    $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
+    $('#RemarkScore').css('color','black')
+    $('#Button2').css('color','black')
     $('#Button2').show()
     $('.Intro').hide()
     $('.PlayScreen').show()
     $('.Menu').hide()
+    setPanelDice()
+    gameStatus = 'on'
   }
 
   const but5Act = () => {
     gameMode = 3
+    playerHitPoints = 20
+    playerShieldPts = 5
+    computerHitPoints = 20
     $('#GameMode').text('Game 3 - Fairness Dice')
+    $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
+    $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').show()
+    $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
+    $('#RemarkScore').css('color','black')
+    $('#Button2').css('color','black')
     $('#Button2').show()
     $('.Intro').hide()
     $('.PlayScreen').show()
     $('.Menu').hide()
+    setPanelDice()
+    gameStatus = 'on'
+}
+
+  const resetScreen = () => {
+    if (gameMode === 1) {
+      but3Act()
+      setPanelDice()
+      gameStatus = 'on'
+    } else if (gameMode === 2) {
+      but4Act()
+      setPanelDice()
+      gameStatus = 'on'
+    } else {
+      but5Act()
+      setPanelDice()
+      gameStatus = 'on'
+    }
   }
 
   const setPanelDice = () => {
@@ -296,9 +344,9 @@ $(() => {
       $('#Roundwinner').css('color', 'senna')
       $('#Roundwinner').text('click GO to start')
       $('#RemarkScore').text(
-        'You have 20 seconds to get as many high value cards as you can.',
+        'You have '+timer+' seconds to get as many high value cards as you can.',
       )
-      $('#TotalDiceValue').text('Score= 0 Timer= 20')
+      $('#TotalDiceValue').text('Score= 0 Timer= ' + timer)
     }
   }
 
@@ -306,8 +354,6 @@ $(() => {
     if ($('#Button1').text() === 'Card A' || 'G O') {
       cardA = Math.floor(Math.random() * cards.length)
       console.log('card A- ', cardA, '-', cards[cardA])
-      // cardB = Math.floor(Math.random() * cards.length)
-      // console.log('card B- ', cardB, '-', cards[cardB])
 
       if (cardA === 0) {
         cardB = Math.floor(Math.random() * cards.length) + 1
@@ -344,9 +390,9 @@ $(() => {
     $('#Roundwinner').css('color', 'black')
     $('#Roundwinner').text('choose Card-A / Card-B for next round')
     $('#RemarkScore').text(
-      'You have 20 seconds to get as many high value cards as you can.',
+      'You have '+timer+' seconds to get as many high value cards as you can.',
     )
-  }
+}
 
   const timerCounter = () => {
     const countDown = setInterval(() => {
@@ -392,7 +438,6 @@ $(() => {
     $('#Button1').hide()
     $('#Button2').prop('disabled', false)
     $('#Button2').css('background-color', 'lightpink')
-    // $('#Button2').css('color', 'white')
     $('#Button2').text('return to D I C E')
   }
 
