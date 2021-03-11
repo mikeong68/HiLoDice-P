@@ -61,6 +61,9 @@ const cards = [
 
 //--- all value will be set in function [but(1/2/3/4/5)-Act]
 let turnD = 0
+let turnB1 = 0
+let turnB2 = 0
+let turnB3 = 0
 let gameMode = 0
 let gameStatus = 'on'
 let shieldStatus = 'off'
@@ -75,6 +78,7 @@ let playerRollMatrix = [1, 6] // min, max
 let computerRollMatrix = [1, 12] // min, max
 
 let timer = 0
+let turn = null
 let cardA = null
 let cardB = null
 let cardPlayer = null
@@ -112,7 +116,9 @@ $(() => {
     } else adjustD = totalD
 
     turnD++
-    $('#TurnD').text(`Turn: ` + turnD)
+    $('#TurnD').text('Turn: ')
+    $("#TurnD").append(turnD)
+    $("#TurnD").append("<br />")
 
     $('#RemarkScore').css('color', 'black')
     if (playerD === computerD) {
@@ -141,6 +147,20 @@ $(() => {
       $('#Roundwinner').text('This round WINNER = Computer !')
       $('#Roundwinner').css('color', 'red')
       $('#RemarkScore').text(`Your Hit Points is down by ${adjustD}.`)
+    }
+
+    if (gameMode === 1) {
+      turnB1 = turnD > turnB1 ? turnD : turnB1
+      $("#TurnD").append("Best: "+turnB1)
+      $('#Button6').text('Best- '+turnB1)
+    } else if (gameMode === 2) {
+      turnB2 = turnD > turnB2 ? turnD : turnB2
+      $("#TurnD").append("Best: "+turnB2)
+      $('#Button7').text('Best- '+turnB2)
+    } else {
+      turnB3 = turnD > turnB3 ? turnD : turnB3
+      $("#TurnD").append("Best: "+turnB3)
+      $('#Button8').text('Best- '+turnB3)
     }
   }
 
@@ -205,7 +225,7 @@ $(() => {
       $('#Button2').css('background-color', 'orange')
       $('#PlayerShieldPoints').css('color', 'red')
       $('#RemarkScore').text(
-        'sorry... You have zero ( 0 ) Shield Point. Do continue R O L L -ing.',
+        'sorry... you have zero ( 0 ) Shield Point. Do continue R O L L -ing.',
       )
     } else if ($('#Button2').text() === 'S H I E L D') {
       shieldStatus = 'on'
@@ -262,9 +282,13 @@ $(() => {
     computerHitPoints = 20
     computerRollMatrix = [1, 6] // min, max
     $('#GameMode').text('Game 1 - Basic Hi-Lo')
-    $('#TurnD').text('Turn: ' + turnD)
+    $("#TurnD").text("Turn: ")
+    $("#TurnD").append(turnD)
+    $("#TurnD").append("<br />")
+    $("#TurnD").append("Best: "+turnB1)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
+    $('#PlayerShieldPoints').css('color', 'black')
     $('#PlayerShieldPoints').hide()
     $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
     $('#RemarkScore').css('color', 'black')
@@ -283,7 +307,10 @@ $(() => {
     playerShieldPts = 5
     computerHitPoints = 20
     $('#GameMode').text('Game 2 - Unfair Advantage')
-    $('#TurnD').text('Turn: ' + turnD)
+    $("#TurnD").text("Turn: ")
+    $("#TurnD").append(turnD)
+    $("#TurnD").append("<br />")
+    $("#TurnD").append("Best: "+turnB2)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').css('color', 'black')
@@ -306,9 +333,13 @@ $(() => {
     playerShieldPts = 5
     computerHitPoints = 20
     $('#GameMode').text('Game 3 - Fairness Dice')
-    $('#TurnD').text('Turn: ' + turnD)
+    $("#TurnD").text("Turn: ")
+    $("#TurnD").append(turnD)
+    $("#TurnD").append("<br />")
+    $("#TurnD").append("Best: "+turnB3)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
+    $('#PlayerShieldPoints').css('color', 'black')
     $('#PlayerShieldPoints').show()
     $('#ComputerHitPoints').text(computerHitPoints + ': Hit Points')
     $('#RemarkScore').css('color', 'black')
@@ -401,7 +432,7 @@ $(() => {
   }
 
   const startCard = () => {
-    let turn = 'on'
+    turn = 'on'
     if ((turn = 'on')) {
       cardAssign()
     }
