@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>OM-Hi-Lo Dice Play</title>
+    <title>Hi-Lo Dice</title>
     <link rel="stylesheet" href="style.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -16,7 +16,8 @@
     <h1 id="Header">Hi-Lo Dice</h1>
     <div class="Intro">
       <p id="IntroText">
-        You are the Player.
+        <img src="Instructions.png" alt="Instruction to Play" />
+        <!-- You are the Player.
         <br />
         You be playing with the computer.
         <br />
@@ -34,11 +35,11 @@
         Loser lose Hit Points with total value of Dice(s).
         <br />
         <br />
-        Only player has Shield Points for Game Mode #2 and #3.
-        Shield Points are insurance against Computer Dice having higher total
-        values than 6; cause Computer has two dice(s). When Shield is activated,
-        the increase / losing of Hit Points will just be the highest total value
-        of the two players - instead of the total.
+        Only player has Shield Points for Game Mode #2 and #3. Shield Points are
+        insurance against Computer Dice having higher total values than 6; cause
+        Computer has two dice(s). When Shield is activated, the increase /
+        losing of Hit Points will just be the highest total value of the two
+        players - instead of the total.
         <br />
         <br />
         i.e. Player = 5; Computer = 14 thus total value = 19
@@ -48,23 +49,27 @@
         Shield OFF - 19 is used to adjust Hit Points.
         <br />
         <br />
-        Game Mode #2 - Player gets only 5 Shield Points.<br />
-        Game Mode #3 - Player gets 5 Shield Points and is able to get more on reaching zero ( 0 ).
-      </p>
-      <p id="IntroChoice">Player = choose your Game Level</p>
+        Game Mode #2 - Player gets only 5 Shield Points.
+        <br />
+        Game Mode #3 - Player gets 5 Shield Points and is able to get more on
+        reaching zero ( 0 ).
+      </p> -->
     </div>
     <div class="PlayScreen">
       <h2 id="GameMode">Game 1 - Basic Hi-Lo</h2>
 
+      <p id="TurnD">Turn: 0</p>
       <p id="PlayerName">Player:</p>
       <p id="PlayerHitPoints">0: Hit Points</p>
       <p id="PlayerShieldPoints">0: Shield Points</p>
       <p id="ComputerName">Computer:</p>
       <p id="ComputerHitPoints">0: Hit Points</p>
-      <p id="PlayerRoll">Dice</p>
-      <p id="RollPlayer">Player</p>
 
-      <p id="ComputerRoll">Dice</p>
+      <!-- <p id="PlayerRoll">Dice</p> -->
+      <button class="AllPanels" id="PlayerRoll">dice</button>
+      <p id="RollPlayer">Player</p>
+      <!-- <p id="ComputerRoll">Dice</p> -->
+      <button class="AllPanels" id="ComputerRoll">dice</button>
       <p id="RollComputer">Computer</p>
 
       <p id="TotalDiceValue">This round has not been played.</p>
@@ -76,6 +81,7 @@
       <p id="RemarkScore">Player = click R O L L to start.</p>
     </div>
     <div class="Menu">
+      <p id="IntroChoice">Player = choose your Game Level</p>
       <div id="ModeSelect">
         <button class="AllButtons" id="Button3">
           Game 1 - Basic Hi-Lo
@@ -96,11 +102,9 @@
     </div>
 
     <center>
-        <p>
-          Best play with
-          <br />
-          Google Chrome on Computer / Tablet
-        </p>
+        Best play with
+        <br />
+        Google Chrome on Computer / Tablet
     </center>
   </body>
 </html>
