@@ -423,7 +423,7 @@ $(() => {
           cardB = Math.floor(Math.random() * a)
           console.log('card B setC- ', cardB, '-', cards[cardB])
         } else {
-          cardB = Math.floor(Math.random() * (52 - b)) + b
+          cardB = Math.floor(Math.random() * (cards.length - b)) + b
           console.log('card B setD- ', cardB, '-', cards[cardB])
         }
       }
