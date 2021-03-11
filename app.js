@@ -5,58 +5,19 @@ if (typeof $ == 'undefined') {
 }
 
 const cards = [
-  'Ace of Spade',
-  'Ace of Heart',
-  'Ace of Club',
-  'Ace of Diamond',
-  'King of Spade',
-  'King of Heart',
-  'King of Club',
-  'King of Diamond',
-  'Queen of Spade',
-  'Queen of Heart',
-  'Queen of Club',
-  'Queen of Diamond',
-  'Jack of Spade',
-  'Jack of Heart',
-  'Jack of Club',
-  'Jack of Diamond',
-  '10 of Spade',
-  '10 of Heart',
-  '10 of Club',
-  '10 of Diamond',
-  '9 of Spade',
-  '9 of Heart',
-  '9 of Club',
-  '9 of Diamond',
-  '8 of Spade',
-  '8 of Heart',
-  '8 of Club',
-  '8 of Diamond',
-  '7 of Spade',
-  '7 of Heart',
-  '7 of Club',
-  '7 of Diamond',
-  '6 of Spade',
-  '6 of Heart',
-  '6 of Club',
-  '6 of Diamond',
-  '5 of Spade',
-  '5 of Heart',
-  '5 of Club',
-  '5 of Diamond',
-  '4 of Spade',
-  '4 of Heart',
-  '4 of Club',
-  '4 of Diamond',
-  '3 of Spade',
-  '3 of Heart',
-  '3 of Club',
-  '3 of Diamond',
-  '2 of Spade',
-  '2 of Heart',
-  '2 of Club',
-  '2 of Diamond',
+  'Ace of Spade', 'Ace of Heart', 'Ace of Club', 'Ace of Diamond',
+  'King of Spade', 'King of Heart', 'King of Club', 'King of Diamond',
+  'Queen of Spade', 'Queen of Heart', 'Queen of Club', 'Queen of Diamond',
+  'Jack of Spade', 'Jack of Heart', 'Jack of Club', 'Jack of Diamond',
+  '10 of Spade', '10 of Heart', '10 of Club', '10 of Diamond',
+  '9 of Spade', '9 of Heart', '9 of Club', '9 of Diamond',
+  '8 of Spade', '8 of Heart', '8 of Club', '8 of Diamond',
+  '7 of Spade', '7 of Heart', '7 of Club', '7 of Diamond',
+  '6 of Spade', '6 of Heart', '6 of Club', '6 of Diamond',
+  '5 of Spade', '5 of Heart', '5 of Club', '5 of Diamond',
+  '4 of Spade', '4 of Heart', '4 of Club', '4 of Diamond',
+  '3 of Spade', '3 of Heart', '3 of Club', '3 of Diamond',
+  '2 of Spade', '2 of Heart', '2 of Club', '2 of Diamond',
 ]
 
 //--- all value will be set in function [but(1/2/3/4/5)-Act]
@@ -75,7 +36,7 @@ let computerD = '?'
 let totalD = null
 let shieldD = null
 let playerRollMatrix = [1, 6] // min, max
-let computerRollMatrix = [1, 12] // min, max
+let computerRollMatrix = [2, 12] // min, max
 
 let timer = 0
 let turn = null
@@ -117,8 +78,8 @@ $(() => {
 
     turnD++
     $('#TurnD').text('Turn: ')
-    $("#TurnD").append(turnD)
-    $("#TurnD").append("<br />")
+    $('#TurnD').append(turnD)
+    $('#TurnD').append('<br />')
 
     $('#RemarkScore').css('color', 'black')
     if (playerD === computerD) {
@@ -151,16 +112,16 @@ $(() => {
 
     if (gameMode === 1) {
       turnB1 = turnD > turnB1 ? turnD : turnB1
-      $("#TurnD").append("Best: "+turnB1)
-      $('#Button6').text('Best- '+turnB1)
+      $('#TurnD').append('Best: ' + turnB1)
+      $('#Button6').text('Best- ' + turnB1)
     } else if (gameMode === 2) {
       turnB2 = turnD > turnB2 ? turnD : turnB2
-      $("#TurnD").append("Best: "+turnB2)
-      $('#Button7').text('Best- '+turnB2)
+      $('#TurnD').append('Best: ' + turnB2)
+      $('#Button7').text('Best- ' + turnB2)
     } else {
       turnB3 = turnD > turnB3 ? turnD : turnB3
-      $("#TurnD").append("Best: "+turnB3)
-      $('#Button8').text('Best- '+turnB3)
+      $('#TurnD').append('Best: ' + turnB3)
+      $('#Button8').text('Best- ' + turnB3)
     }
   }
 
@@ -282,10 +243,10 @@ $(() => {
     computerHitPoints = 20
     computerRollMatrix = [1, 6] // min, max
     $('#GameMode').text('Game 1 - Basic Hi-Lo')
-    $("#TurnD").text("Turn: ")
-    $("#TurnD").append(turnD)
-    $("#TurnD").append("<br />")
-    $("#TurnD").append("Best: "+turnB1)
+    $('#TurnD').text('Turn: ')
+    $('#TurnD').append(turnD)
+    $('#TurnD').append('<br />')
+    $('#TurnD').append('Best: ' + turnB1)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').css('color', 'black')
@@ -307,10 +268,10 @@ $(() => {
     playerShieldPts = 5
     computerHitPoints = 20
     $('#GameMode').text('Game 2 - Unfair Advantage')
-    $("#TurnD").text("Turn: ")
-    $("#TurnD").append(turnD)
-    $("#TurnD").append("<br />")
-    $("#TurnD").append("Best: "+turnB2)
+    $('#TurnD').text('Turn: ')
+    $('#TurnD').append(turnD)
+    $('#TurnD').append('<br />')
+    $('#TurnD').append('Best: ' + turnB2)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').css('color', 'black')
@@ -333,10 +294,10 @@ $(() => {
     playerShieldPts = 5
     computerHitPoints = 20
     $('#GameMode').text('Game 3 - Fairness Dice')
-    $("#TurnD").text("Turn: ")
-    $("#TurnD").append(turnD)
-    $("#TurnD").append("<br />")
-    $("#TurnD").append("Best: "+turnB3)
+    $('#TurnD').text('Turn: ')
+    $('#TurnD').append(turnD)
+    $('#TurnD').append('<br />')
+    $('#TurnD').append('Best: ' + turnB3)
     $('#PlayerHitPoints').text(playerHitPoints + ': Hit Points')
     $('#PlayerShieldPoints').text(playerShieldPts + ': Shield Points')
     $('#PlayerShieldPoints').css('color', 'black')
